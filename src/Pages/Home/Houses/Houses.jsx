@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -5,11 +6,10 @@ const Houses = () => {
   const [houses, setHouses] = useState([]);
 
   useEffect(() => {
-    fetch(
-      "https://chef-legend-server-nazmulhasannasim333.vercel.app/chefCategories"
-    )
-      .then((res) => res.json())
-      .then((data) => setHouses(data));
+   axios.get('/houses.json')
+   .then(res => {
+    setHouses(res.data);
+   })
   }, []);
 
   return (
@@ -27,7 +27,7 @@ const Houses = () => {
           <button
             // onClick={handleSearchText}
             type="submit"
-            className="bg-indigo-500 text-white px-4 py-2 lg:px-5 lg:py-3 rounded-r-md hover:opacity-90"
+            className="bg-green-600 text-white px-4 py-2 lg:px-5 lg:py-3 rounded-r-md hover:opacity-90"
           >
             Search
           </button>
@@ -55,12 +55,13 @@ const Houses = () => {
           </select>
         </div>
         <div className="lg:py-0 py-4">
-          <select className="select select-success w-full max-w-xs">
+        <select className="select select-success w-full max-w-xs">
             <option disabled selected>
-              Select Bathrooms
+              Select Bathroom
             </option>
-            <option value="Attach">Attach</option>
-            <option value="Not Attach">Not Attach</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
           </select>
         </div>
         <div className="lg:py-0 py-4">
@@ -68,37 +69,63 @@ const Houses = () => {
             <option disabled selected>
               Select Room Size
             </option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
+            <option value="800">800 sq ft</option>
+            <option value="900">800 sq ft</option>
+            <option value="1000">1000 sq ft</option>
           </select>
         </div>
       </div>
       <div className="grid gap-6 mb-8 lg:grid-cols-3 sm:grid-cols-1">
-        {houses.map((house) => (
-          <div key={house.id}>
+        {houses.map((house, i) => (
+          <div key={i}>
             <div className="overflow-hidden relative transition duration-200 transform hover:-translate-y-2 rounded shadow-lg hover:shadow-2xl">
               <img
-                src={house.chefPicture}
-                alt="book cover"
+                src={house.picture}
+                alt="house cover"
                 className="object-cover w-full "
                 style={{ height: "430px" }}
               />
-              <div className="bg-black h-full px-6 py-12 bg-opacity-80 opacity-0 hover:opacity-100 text-white absolute inset-0 transition-opacity duration-200 flex flex-col">
-                <p className="font-semibold text-2xl">{house.chefName}</p>
+              <div className="bg-black h-full px-6 py-4 bg-opacity-80 opacity-0 hover:opacity-100 text-white absolute inset-0 transition-opacity duration-200 flex flex-col">
+                <p className="font-semibold text-2xl">{house.house_name}</p>
                 <br />
                 <p>
-                  Experiance:{" "}
+                  Address:{" "}
                   <span className="font-semibold">
-                    {house.YearOfexperiences}
+                    {house.address}
                   </span>
                 </p>
-                <br />
                 <p>
-                  Total Likes:{" "}
-                  <span className="font-semibold">{house.like}</span>
+                  City:{" "}
+                  <span className="font-semibold">{house.city}</span>
                 </p>
-                <br />
+                <p>
+                Bedrooms:{" "}
+                  <span className="font-semibold">{house.bedrooms}</span>
+                </p>
+                <p>
+                Bathrooms:{" "}
+                  <span className="font-semibold">{house.bathrooms}</span>
+                </p>
+                <p>
+                Room Size:{" "}
+                  <span className="font-semibold">{house.room_size}</span>
+                </p>
+                <p>
+                Availability Date:{" "}
+                  <span className="font-semibold">{house.availability_date}</span>
+                </p>
+                <p>
+                Phone Number:{" "}
+                  <span className="font-semibold">{house.phone_number}</span>
+                </p>
+                <p>
+                Description:{" "}
+                  <span className="font-semibold">{house.description}</span>
+                </p>
+                <p>
+                Rent per month:{" "}
+                  <span className="font-semibold">${house.rent_per_month}</span>
+                </p>
                 <Link>
                   <button className="btn bg-green-500 border-0 absolute bottom-5 w-full left-0 ">
                     Book House
