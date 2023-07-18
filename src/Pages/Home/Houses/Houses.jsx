@@ -9,15 +9,33 @@ const Houses = () => {
   const [houses, setHouses] = useState([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const [booking, setBooking] = useState([])
+  const [booking, setBooking] = useState([]);
+  const [seachText, setsearchText] = useState("");
 
   // get user booking house
-  useEffect(()=> {
-      axios.get(`http://localhost:5000/mybooking/${user?.email}`)
-      .then(res => {
-          setBooking(res.data);
-      },[user])
-  })
+  useEffect(() => {
+    axios.get(`http://localhost:5000/mybooking/${user?.email}`).then(
+      (res) => {
+        setBooking(res.data);
+      },
+      [user]
+    );
+  });
+
+  //   handler for searching
+  const handleSearchText = () => {
+    fetch(`http://localhost:5000/housesearch/${seachText}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setHouses(data);
+      });
+  };
+  //   "Enter key press to search"
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearchText();
+    }
+  };
 
   //   Check House Owner
   const [isOwner] = useOwner();
@@ -26,7 +44,8 @@ const Houses = () => {
   const handleBooking = () => {
     if (!user) {
       Swal.fire({
-        title: "Please Login to select the apartment or you have already finished your booking limit",
+        title:
+          "Please Login to select the apartment or you have already finished your booking limit",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -40,7 +59,7 @@ const Houses = () => {
     }
   };
 
-//   get all house
+  //   get all house
   useEffect(() => {
     axios.get("http://localhost:5000/houses").then((res) => {
       setHouses(res.data);
@@ -52,15 +71,15 @@ const Houses = () => {
       <div className="lg:flex justify-between items-center py-14">
         <div className="flex items-center  lg:w-1/4 w-full">
           <input
-            // onChange={(e) => setsearchText(e.target.value)}
-            // onKeyDown={handleKeyPress}
+            onChange={(e) => setsearchText(e.target.value)}
+            onKeyDown={handleKeyPress}
             type="text"
             className="w-full border text-black p-2 lg:p-3 rounded-l-md focus:outline-none"
             placeholder="Search House"
           />
 
           <button
-            // onClick={handleSearchText}
+            onClick={handleSearchText}
             type="submit"
             className="bg-green-600 text-white px-4 py-2 lg:px-5 lg:py-3 rounded-r-md hover:opacity-90"
           >
@@ -165,8 +184,8 @@ const Houses = () => {
                 </p>
                 <Link to={user && `/booking/${house._id}`}>
                   <button
-                  onClick={handleBooking} 
-                    disabled={isOwner ||  booking?.length >= 2}
+                    onClick={handleBooking}
+                    disabled={isOwner || booking?.length >= 2}
                     className="btn bg-green-500 border-0 absolute bottom-5 w-2/4 "
                   >
                     Book House
