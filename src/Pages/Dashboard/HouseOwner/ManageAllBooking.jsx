@@ -41,11 +41,38 @@ const ManageAllBooking = () => {
           });
     }
 
+    // handle booking approved
+  const handleApproved = (book) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `You want to update this booking status`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Approved",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.patch(`http://localhost:5000/approvedbooking/${book._id}`)
+        .then(res => {
+            if (res.data.modifiedCount > 0) {
+                refetch()
+                Swal.fire(
+                    "Approved!",
+                    "Booking Status has been updated.",
+                    "success"
+                  );
+            }
+        })
+      }
+    });
+  };
+
 
     return (
         <div className="w-full px-10  my-16">
         <h3 className="text-3xl ms-2 my-3 font-bold">
-          Total Booking: 34
+          Total Booking: {booking.length}
         </h3>
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
@@ -58,6 +85,7 @@ const ManageAllBooking = () => {
                 <th className="text-xl font-semibold">Renter Email</th>
                 <th className="text-xl font-semibold">House Name</th>
                 <th className="text-xl font-semibold">City</th>
+                <th className="text-xl font-semibold">Rent</th>
                 <th className="text-xl font-semibold">Status</th>
                 <th className="text-xl font-semibold">Action</th>
               </tr>
@@ -79,7 +107,7 @@ const ManageAllBooking = () => {
                   <td>{book?.email}</td>
                   <td>{book?.house_name}</td>
                   <td>{book?.city}</td>
-                  
+                  <td>${book?.rent_per_month}/month</td>
                   <td>
                     {book.status === "approved" ?
                     <button
@@ -89,6 +117,7 @@ const ManageAllBooking = () => {
                   </button>
                   :
                   <button
+                  onClick={() =>handleApproved(book)}
                       className="btn btn-ghost btn-xs bg-red-500 text-white"
                     >
                       Pending

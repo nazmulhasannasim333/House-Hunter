@@ -33,6 +33,7 @@ const ManageBooking = () => {
               axios.delete(`http://localhost:5000/booking/${book._id}`)
               .then(res => {
                 if (res.data.deletedCount > 0) {
+                    refetch()
                     Swal.fire("Deleted!", "Your booking has been deleted.", "success");
                   }
               })
@@ -45,7 +46,7 @@ const ManageBooking = () => {
     return (
         <div className="w-full px-10  my-16">
         <h3 className="text-3xl ms-2 my-3 font-bold">
-          Total Booking: 34
+          Total Booking: {booking.length}
         </h3>
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
@@ -58,6 +59,7 @@ const ManageBooking = () => {
                 <th className="text-xl font-semibold">Owner Email</th>
                 <th className="text-xl font-semibold">House Name</th>
                 <th className="text-xl font-semibold">City</th>
+                <th className="text-xl font-semibold">Rent</th>
                 <th className="text-xl font-semibold">Status</th>
                 <th className="text-xl font-semibold">Action</th>
               </tr>
@@ -79,7 +81,7 @@ const ManageBooking = () => {
                   <td>{book?.owner_email}</td>
                   <td>{book?.house_name}</td>
                   <td>{book?.city}</td>
-                  
+                  <td>${book?.rent_per_month}/month</td>
                   <td>
                     {book.status === "approved" ?
                     <button

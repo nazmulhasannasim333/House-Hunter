@@ -5,6 +5,7 @@ import BookingForm from "../Pages/BookingForm/BookingForm";
 import AddHouse from "../Pages/Dashboard/HouseOwner/AddHouse";
 import ManageAllBooking from "../Pages/Dashboard/HouseOwner/ManageAllBooking";
 import ManageHouse from "../Pages/Dashboard/HouseOwner/ManageHouse";
+import UpdateHouse from "../Pages/Dashboard/HouseOwner/UpdateHouse";
 import ManageBooking from "../Pages/Dashboard/HouseRenter/ManageBooking";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
           {
             path: "managehouse",
             element: <ManageHouse />,
+          },
+          {
+            path: "updatehouse/:id",
+            element: <UpdateHouse />,
+            loader: ({params}) => fetch(`http://localhost:5000/house/${params.id}`)
           },
           {
             path: "manageallbooking",
