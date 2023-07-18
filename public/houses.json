@@ -1,6 +1,8 @@
 [
   {
     "house_name": "Apartment 1",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "123 Main Street",
     "city": "Exampleville",
     "bedrooms": 2,
@@ -14,6 +16,8 @@
   },
   {
     "house_name": "Apartment 2",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "456 Elm Avenue",
     "city": "Sampletown",
     "bedrooms": 1,
@@ -27,6 +31,8 @@
   },
   {
     "house_name": "Apartment 3",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "789 Oak Road",
     "city": "Testville",
     "bedrooms": 3,
@@ -40,6 +46,8 @@
   },
   {
     "house_name": "Apartment 4",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "321 Pine Lane",
     "city": "Demo City",
     "bedrooms": 1,
@@ -53,6 +61,8 @@
   },
   {
     "house_name": "Apartment 5",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "555 Maple Street",
     "city": "Exampleville",
     "bedrooms": 2,
@@ -66,6 +76,8 @@
   },
   {
     "house_name": "Apartment 6",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "777 Cedar Avenue",
     "city": "Sampletown",
     "bedrooms": 2,
@@ -79,6 +91,8 @@
   },
   {
     "house_name": "Apartment 7",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "999 Walnut Road",
     "city": "Testville",
     "bedrooms": 1,
@@ -92,6 +106,8 @@
   },
   {
     "house_name": "Apartment 8",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "222 Birch Lane",
     "city": "Demo City",
     "bedrooms": 3,
@@ -105,6 +121,8 @@
   },
   {
     "house_name": "Apartment 9",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "444 Oak Road",
     "city": "Exampleville",
     "bedrooms": 2,
@@ -118,6 +136,8 @@
   },
   {
     "house_name": "Apartment 10",
+    "owner_name": "Md Nazmul Hasan",
+    "owner_email": "nazmulhasannasim333@gmail.com",
     "address": "666 Elm Avenue",
     "city": "Sampletown",
     "bedrooms": 1,

@@ -1,15 +1,50 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useOwner from "../../../hooks/useOwner";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const Houses = () => {
   const [houses, setHouses] = useState([]);
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const [booking, setBooking] = useState([])
 
+  // get user booking house
+  useEffect(()=> {
+      axios.get(`http://localhost:5000/mybooking/${user?.email}`)
+      .then(res => {
+          setBooking(res.data);
+      },[user])
+  })
+
+  //   Check House Owner
+  const [isOwner] = useOwner();
+
+  //   Booking
+  const handleBooking = () => {
+    if (!user) {
+      Swal.fire({
+        title: "Please Login to select the apartment or you have already finished your booking limit",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login");
+        }
+      });
+    }
+  };
+
+//   get all house
   useEffect(() => {
-   axios.get('/houses.json')
-   .then(res => {
-    setHouses(res.data);
-   })
+    axios.get("http://localhost:5000/houses").then((res) => {
+      setHouses(res.data);
+    });
   }, []);
 
   return (
@@ -55,7 +90,7 @@ const Houses = () => {
           </select>
         </div>
         <div className="lg:py-0 py-4">
-        <select className="select select-success w-full max-w-xs">
+          <select className="select select-success w-full max-w-xs">
             <option disabled selected>
               Select Bathroom
             </option>
@@ -76,8 +111,8 @@ const Houses = () => {
         </div>
       </div>
       <div className="grid gap-6 mb-8 lg:grid-cols-3 sm:grid-cols-1">
-        {houses.map((house, i) => (
-          <div key={i}>
+        {houses.map((house) => (
+          <div key={house._id}>
             <div className="overflow-hidden relative transition duration-200 transform hover:-translate-y-2 rounded shadow-lg hover:shadow-2xl">
               <img
                 src={house.picture}
@@ -90,44 +125,50 @@ const Houses = () => {
                 <br />
                 <p>
                   Address:{" "}
-                  <span className="font-semibold">
-                    {house.address}
-                  </span>
+                  <span className="font-semibold">{house.address}</span>
                 </p>
                 <p>
-                  City:{" "}
-                  <span className="font-semibold">{house.city}</span>
+                  City: <span className="font-semibold">{house.city}</span>
                 </p>
                 <p>
-                Bedrooms:{" "}
+                  Bedrooms:{" "}
                   <span className="font-semibold">{house.bedrooms}</span>
                 </p>
                 <p>
-                Bathrooms:{" "}
+                  Bathrooms:{" "}
                   <span className="font-semibold">{house.bathrooms}</span>
                 </p>
                 <p>
-                Room Size:{" "}
+                  Room Size:{" "}
                   <span className="font-semibold">{house.room_size}</span>
                 </p>
                 <p>
-                Availability Date:{" "}
-                  <span className="font-semibold">{house.availability_date}</span>
+                  Availability Date:{" "}
+                  <span className="font-semibold">
+                    {house.availability_date}
+                  </span>
                 </p>
                 <p>
-                Phone Number:{" "}
+                  Phone Number:{" "}
                   <span className="font-semibold">{house.phone_number}</span>
                 </p>
                 <p>
-                Description:{" "}
+                  Description:{" "}
                   <span className="font-semibold">{house.description}</span>
                 </p>
+                <br />
                 <p>
-                Rent per month:{" "}
-                  <span className="font-semibold">${house.rent_per_month}</span>
+                  Rent per month:{" "}
+                  <span className="font-semibold text-xl">
+                    ${house.rent_per_month}
+                  </span>
                 </p>
-                <Link>
-                  <button className="btn bg-green-500 border-0 absolute bottom-5 w-full left-0 ">
+                <Link to={user && `/booking/${house._id}`}>
+                  <button
+                  onClick={handleBooking} 
+                    disabled={isOwner ||  booking?.length >= 2}
+                    className="btn bg-green-500 border-0 absolute bottom-5 w-2/4 "
+                  >
                     Book House
                   </button>
                 </Link>

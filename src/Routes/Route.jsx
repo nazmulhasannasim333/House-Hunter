@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Dashboard from "../Layout/Dashboard";
 import Main from "../Layout/Main";
+import BookingForm from "../Pages/BookingForm/BookingForm";
 import AddHouse from "../Pages/Dashboard/HouseOwner/AddHouse";
 import ManageAllBooking from "../Pages/Dashboard/HouseOwner/ManageAllBooking";
 import ManageHouse from "../Pages/Dashboard/HouseOwner/ManageHouse";
@@ -19,6 +20,11 @@ const router = createBrowserRouter([
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/booking/:id",
+          element: <BookingForm />,
+          loader: ({params}) => fetch(`http://localhost:5000/house/${params.id}`)
         },
         {
           path: "/signup",

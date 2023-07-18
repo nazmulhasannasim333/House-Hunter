@@ -1,20 +1,45 @@
 
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showError, setShowError] = useState("");
+    const navigate = useNavigate()
+    // const {createUser} = useContext(AuthContext)
+    // console.log(createUser);
 
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
       } = useForm();
     
-      const onSubmit = (data) => {}
+      const onSubmit = (data) => {
+        const {name, email, password, role} = data;
+        const registerUser = {name, email, password, role}
+
+        axios.post('http://localhost:5000/signup', registerUser)
+        .then(res => {
+            console.log(res.data);
+            if(res.data.insertedId){
+                reset()
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your account created successful',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  navigate("/login")
+            }
+        })
+      }
 
 
 
@@ -64,6 +89,19 @@ const Signup = () => {
                   <FaEye onClick={() => setShowPassword(false)} className="absolute text-xl"
                   style={{ top: "70px", right: "10px" }} />
                 }
+            </div>
+            <div className="py-5">
+              <label className="" htmlFor="text">
+                Select Role
+              </label>
+              <select
+                className=" w-full  p-2 lg:p-3 rounded-md focus:outline-none my-2 border border-green-500"
+                {...register("role")}
+                required
+              >
+                <option value="owner">House Owner</option>
+                <option value="renter">House Renter</option>
+              </select>
             </div>
           <button
             type="submit"

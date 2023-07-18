@@ -1,20 +1,48 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showError, setShowError] = useState("");
+    const navigate = useNavigate()
+    const {getUserData} = useContext(AuthContext)
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
       } = useForm();
     
-      const onSubmit = (data) => {}
+      const onSubmit = (data) => {
+        const {email, password} = data;
+        const loginUser = {email, password}
+
+        axios.post(`http://localhost:5000/login`, loginUser)
+        .then(res => {
+            const token = res.data;
+            localStorage.setItem('token', token);
+            if(localStorage.getItem('token')){
+                reset()
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Welcome to HouseHunter',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  navigate("/")
+                getUserData()
+            }
+        })
+         
+      }
 
 
 
