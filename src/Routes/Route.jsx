@@ -11,6 +11,8 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
+import OwnerRoute from "./OwnerRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -39,25 +41,25 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <PrivateRoute><Dashboard /></PrivateRoute>,
         children: [
          // House Owner Dashboard
           {
             path: "managehouse",
-            element: <ManageHouse />,
+            element: <OwnerRoute><ManageHouse /></OwnerRoute>,
           },
           {
             path: "updatehouse/:id",
-            element: <UpdateHouse />,
+            element: <OwnerRoute><UpdateHouse /></OwnerRoute>,
             loader: ({params}) => fetch(`http://localhost:5000/house/${params.id}`)
           },
           {
             path: "manageallbooking",
-            element: <ManageAllBooking />,
+            element: <OwnerRoute><ManageAllBooking /></OwnerRoute>,
           },
           {
             path: "addhouse",
-            element: <AddHouse />,
+            element: <OwnerRoute><AddHouse /></OwnerRoute>,
           },
          // House Renter Dashboard
           {

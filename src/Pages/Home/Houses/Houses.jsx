@@ -86,9 +86,7 @@ const Houses = () => {
 
   return (
     <>
-    <div className="relative">
-        <img className="w-full h-[600px]" src="https://images.pexels.com/photos/2484836/pexels-photo-2484836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-    </div>
+  
     <div className="max-w-6xl lg:mx-auto mx-4 mt-14">
          <div className="flex items-center lg:w-full w-full">
           <input
