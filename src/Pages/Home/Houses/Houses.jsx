@@ -23,7 +23,7 @@ const Houses = () => {
 
   // get user booking house
   useEffect(() => {
-    axios.get(`http://localhost:5000/mybooking/${user?.email}`).then(
+    axios.get(`https://house-hunter-server-eight.vercel.app/mybooking/${user?.email}`).then(
       (res) => {
         setBooking(res.data);
       },
@@ -33,7 +33,7 @@ const Houses = () => {
 
   //   handler for searching
   const handleSearchText = () => {
-    fetch(`http://localhost:5000/housesearch/${seachText}`)
+    fetch(`https://house-hunter-server-eight.vercel.app/housesearch/${seachText}`)
       .then((res) => res.json())
       .then((data) => {
         setHouses(data);
@@ -48,7 +48,7 @@ const Houses = () => {
 
   // filter by user preferences.
  useEffect(()=>{
-    axios.get(`http://localhost:5000/houses?city=${city}&bedrooms=${bedrooms}&bathrooms=${bathrooms}&room_size=${roomSize}&availability_date=${availability}&minRent=${minRent}&maxRent=${maxRent}&page=${currentPage}`)
+    axios.get(`https://house-hunter-server-eight.vercel.app/houses?city=${city}&bedrooms=${bedrooms}&bathrooms=${bathrooms}&room_size=${roomSize}&availability_date=${availability}&minRent=${minRent}&maxRent=${maxRent}&page=${currentPage}`)
     .then(res => {
         setTotalPages(res.data.totalPages);
         setHouses(res.data.result)

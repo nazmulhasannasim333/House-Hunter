@@ -9,7 +9,7 @@ const UserProfile = () => {
   
 
   useEffect(() => {
-    fetch(`http://localhost:5000/profile/${user?.email}`)
+    fetch(`https://house-hunter-server-eight.vercel.app/profile/${user?.email}`)
     .then(res => res.json())
     .then(data => {
       setUserProfile(data)
@@ -48,7 +48,7 @@ const UserProfile = () => {
                   <img
                     style={{ height: "9rem", width: "9rem" }}
                     className="md rounded-full relative border-4 border-gray-900"
-                    src={userProfile && userProfile?.photo}
+                    src={userProfile?.photo ? userProfile?.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"}
                     alt=""
                   />
                   <div className="absolute" />

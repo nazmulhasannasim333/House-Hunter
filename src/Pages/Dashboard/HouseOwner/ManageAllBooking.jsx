@@ -12,7 +12,7 @@ const ManageAllBooking = () => {
         queryKey: ["booked"],
         enabled: !loading,
         queryFn: async () => {
-          const response = await axios.get(`http://localhost:5000/bookedhouse/${user?.email}`);
+          const response = await axios.get(`https://house-hunter-server-eight.vercel.app/bookedhouse/${user?.email}`);
           return response.data;
         },
       });
@@ -30,7 +30,7 @@ const ManageAllBooking = () => {
             confirmButtonText: "Yes, delete it!",
           }).then((result) => {
             if (result.isConfirmed) {
-              axios.delete(`http://localhost:5000/booking/${book._id}`)
+              axios.delete(`https://house-hunter-server-eight.vercel.app/booking/${book._id}`)
               .then(res => {
                 if (res.data.deletedCount > 0) {
                     refetch()
@@ -53,7 +53,7 @@ const ManageAllBooking = () => {
       confirmButtonText: "Yes, Approved",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.patch(`http://localhost:5000/approvedbooking/${book._id}`)
+        axios.patch(`https://house-hunter-server-eight.vercel.app/approvedbooking/${book._id}`)
         .then(res => {
             if (res.data.modifiedCount > 0) {
                 refetch()

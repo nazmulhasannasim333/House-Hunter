@@ -1,6 +1,7 @@
 import React from "react";
 import { FaBookDead, FaBookMedical, FaHome, FaHouseUser, FaUser } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import DashboardUser from "../components/DashboardUser/DashboardUser";
 import useOwner from "../hooks/useOwner";
 
 const Dashboard = () => {
@@ -24,6 +25,7 @@ const Dashboard = () => {
           {isOwner ? (
             <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
               {/* Sidebar content here */}
+              <DashboardUser />
               <li className="text-lg py-2 font-semibold">
                 <NavLink
                   to="/dashboard/managehouse"
@@ -77,10 +79,24 @@ const Dashboard = () => {
                   Back to Home
                 </NavLink>
               </li>
+              <li className="text-lg py-2 font-semibold">
+                <NavLink
+                  to="/dashboard/profile"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-white bg-gradient-to-r from-green-400 to-blue-500"
+                      : "hover:text-purple-600  ease-in duration-200"
+                  }
+                >
+                  <FaUser className="font-bold  text-xl" />
+                  Profile
+                </NavLink>
+              </li>
             </ul>
           ) : (
             <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
               {/* Sidebar content here */}
+              <DashboardUser />
               <li className="text-lg py-2 font-semibold">
                 <NavLink
                   to="/dashboard/managebooking"
