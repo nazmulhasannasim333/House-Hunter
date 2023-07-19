@@ -22,7 +22,7 @@ const AddHouse = () => {
         const {address,availability_date,bathrooms,bedrooms, city, house_name, owner_email, owner_name, phone_number, picture, rent_per_month, room_size, description} = data;
         const addHouse = {owner_name: user?.name, owner_email: user?.email, phone_number, address,availability_date,bathrooms,bedrooms, city, house_name, picture, rent_per_month, room_size, description}
 
-        axios.post(`https://house-hunter-server-eight.vercel.app/addhouse/`, addHouse)
+        axios.post(`http://localhost:5000/addhouse/`, addHouse)
         .then(res => {
             if(res.data.insertedId){
                 reset()

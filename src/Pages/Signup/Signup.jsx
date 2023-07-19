@@ -22,7 +22,7 @@ const Signup = () => {
         const {name, email, password, role} = data;
         const registerUser = {name, email, password, role}
 
-        axios.post('https://house-hunter-server-eight.vercel.app/signup', registerUser)
+        axios.post('http://localhost:5000/signup', registerUser)
         .then(res => {
             if(res.data.insertedId){
                 reset()

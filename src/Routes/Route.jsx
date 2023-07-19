@@ -11,6 +11,8 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Signup from "../Pages/Signup/Signup";
 import ErrorPage from "../components/ErrorPage/ErrorPage";
+import UpdateProfile from "../components/UpdateUserProfile/UpdateUserProfile";
+import UserProfile from "../components/UserProfile/UserProfile";
 import OwnerRoute from "./OwnerRoute";
 import PrivateRoute from "./PrivateRoute";
 
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
         {
           path: "/booking/:id",
           element: <BookingForm />,
-          loader: ({params}) => fetch(`https://house-hunter-server-eight.vercel.app/house/${params.id}`)
+          loader: ({params}) => fetch(`http://localhost:5000/house/${params.id}`)
         },
         {
           path: "/signup",
@@ -51,7 +53,7 @@ const router = createBrowserRouter([
           {
             path: "updatehouse/:id",
             element: <OwnerRoute><UpdateHouse /></OwnerRoute>,
-            loader: ({params}) => fetch(`https://house-hunter-server-eight.vercel.app/house/${params.id}`)
+            loader: ({params}) => fetch(`http://localhost:5000/house/${params.id}`)
           },
           {
             path: "manageallbooking",
@@ -65,6 +67,16 @@ const router = createBrowserRouter([
           {
             path: "managebooking",
             element: <ManageBooking />,
+          },
+          // User Profile
+          {
+            path: "profile",
+            element: <UserProfile />,
+          },
+          {
+            path: "updateprofile/:id",
+            element: <UpdateProfile />,
+            loader: ({params}) => fetch(`http://localhost:5000/getprofileinfo/${params.id}`)
           },
         ],
       },
