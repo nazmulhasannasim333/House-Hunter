@@ -20,7 +20,6 @@ const AuthProvider = ({children}) => {
           Authorization: token,
         },
       });
-      console.log(response.data);
       setUser(response.data);
       setLoading(false);
     } catch (error) {
