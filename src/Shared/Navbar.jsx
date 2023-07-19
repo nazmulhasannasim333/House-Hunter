@@ -17,7 +17,7 @@ const Navbar = () => {
   console.log(isOwner);
 
   return (
-    <div>
+    <div className="sticky top-0 z-30 bg-white">
       <div className=" max-w-7xl mx-auto">
         <nav className="lg:px-0 ps-14 pe-5 flex justify-between items-center">
           <div className="py-5 text-green-500 font-extrabold text-4xl">

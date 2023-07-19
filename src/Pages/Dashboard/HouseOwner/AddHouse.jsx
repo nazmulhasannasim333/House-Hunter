@@ -15,6 +15,10 @@ const AddHouse = () => {
       } = useForm();
     
       const onSubmit = (data) => {
+        data.bedrooms = parseInt(data.bedrooms)
+        data.bathrooms = parseInt(data.bathrooms)
+        data.rent_per_month = parseFloat(data.rent_per_month)
+
         const {address,availability_date,bathrooms,bedrooms, city, house_name, owner_email, owner_name, phone_number, picture, rent_per_month, room_size, description} = data;
         const addHouse = {owner_name: user?.name, owner_email: user?.email, phone_number, address,availability_date,bathrooms,bedrooms, city, house_name, picture, rent_per_month, room_size, description}
 

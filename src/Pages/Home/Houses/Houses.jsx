@@ -11,6 +11,15 @@ const Houses = () => {
   const { user } = useContext(AuthContext);
   const [booking, setBooking] = useState([]);
   const [seachText, setsearchText] = useState("");
+  const [city, setCity] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
+  const [roomSize, setRoomSize] = useState("");
+  const [availability, setAvailability] = useState("");
+  const [minRent, setMinRent] = useState(0);
+  const [maxRent, setMaxRent] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   // get user booking house
   useEffect(() => {
@@ -37,6 +46,22 @@ const Houses = () => {
     }
   };
 
+  // filter by user preferences.
+ useEffect(()=>{
+    axios.get(`http://localhost:5000/houses?city=${city}&bedrooms=${bedrooms}&bathrooms=${bathrooms}&room_size=${roomSize}&availability_date=${availability}&minRent=${minRent}&maxRent=${maxRent}&page=${currentPage}`)
+    .then(res => {
+        setTotalPages(res.data.totalPages);
+        setHouses(res.data.result)
+    })
+    
+ },[city, bedrooms, bathrooms, roomSize, availability, minRent, maxRent, currentPage])
+
+//  Change by pagination 
+ const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+
   //   Check House Owner
   const [isOwner] = useOwner();
 
@@ -59,17 +84,13 @@ const Houses = () => {
     }
   };
 
-  //   get all house
-  useEffect(() => {
-    axios.get("http://localhost:5000/houses").then((res) => {
-      setHouses(res.data);
-    });
-  }, []);
-
   return (
+    <>
+    <div className="relative">
+        <img className="w-full h-[600px]" src="https://images.pexels.com/photos/2484836/pexels-photo-2484836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+    </div>
     <div className="max-w-6xl lg:mx-auto mx-4 mt-14">
-      <div className="lg:flex justify-between items-center py-14">
-        <div className="flex items-center  lg:w-1/4 w-full">
+         <div className="flex items-center lg:w-full w-full">
           <input
             onChange={(e) => setsearchText(e.target.value)}
             onKeyDown={handleKeyPress}
@@ -86,9 +107,14 @@ const Houses = () => {
             Search
           </button>
         </div>
+      <div className="lg:flex justify-between items-center py-14">
         <div className="lg:py-0 py-4">
-          <select className="select select-success w-full max-w-xs">
-            <option disabled selected>
+          <select
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="select select-success w-full max-w-xs"
+          >
+            <option value="" disabled>
               Choose City
             </option>
             <option value="Pabna">Pabna</option>
@@ -99,8 +125,8 @@ const Houses = () => {
           </select>
         </div>
         <div className="lg:py-0 py-4">
-          <select className="select select-success w-full max-w-xs">
-            <option disabled selected>
+          <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} className="select select-success w-full max-w-xs">
+            <option disabled value="">
               Select Bedrooms
             </option>
             <option value="1">1</option>
@@ -109,8 +135,8 @@ const Houses = () => {
           </select>
         </div>
         <div className="lg:py-0 py-4">
-          <select className="select select-success w-full max-w-xs">
-            <option disabled selected>
+          <select value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} className="select select-success w-full max-w-xs">
+            <option disabled value="">
               Select Bathroom
             </option>
             <option value="1">1</option>
@@ -119,16 +145,29 @@ const Houses = () => {
           </select>
         </div>
         <div className="lg:py-0 py-4">
-          <select className="select select-success w-full max-w-xs">
-            <option disabled selected>
+          <select value={roomSize} onChange={(e) => setRoomSize(e.target.value)} className="select select-success w-full max-w-xs">
+            <option disabled value="">
               Select Room Size
             </option>
-            <option value="800">800 sq ft</option>
-            <option value="900">800 sq ft</option>
-            <option value="1000">1000 sq ft</option>
+            <option value="400 sq ft">400 sq ft</option>
+            <option value="500 sq ft">500 sq ft</option>
+            <option value="600 sq ft">600 sq ft</option>
+            <option value="700 sq ft">700 sq ft</option>
+            <option value="800 sq ft">800 sq ft</option>
+            <option value="900 sq ft">900 sq ft</option>
+            <option value="1000 sq ft">1000 sq ft</option>
           </select>
         </div>
+        <div className="lg:py-0 py-4">
+          <input type="date" value={availability} onChange={(e) => setAvailability(e.target.value)} className="select select-success w-full max-w-xs">
+          </input>
+        </div>
+        <div>
+        <p>${maxRent? maxRent : '0'}</p>
+        <input type="range" min="0" max="2000" value={maxRent} onChange={(e) => setMaxRent(parseInt(e.target.value))} className="range range-success" />
+        </div>
       </div>
+      
       <div className="grid gap-6 mb-8 lg:grid-cols-3 sm:grid-cols-1">
         {houses.map((house) => (
           <div key={house._id}>
@@ -196,7 +235,22 @@ const Houses = () => {
           </div>
         ))}
       </div>
+     {/* Pagination */}
+     <div className="text-center mb-8">
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button
+          className={`bg-slate-800 px-3 py-1  mx-2 rounded-md font-semibold text-md text-white ${page == currentPage ? "bg-yellow-600" : ""}`}
+            key={page}
+            onClick={() => handlePageChange(page)}
+          >
+            {page}
+          </button>
+          
+        ))}
+      </div>
+
     </div>
+    </>
   );
 };
 export default Houses;
