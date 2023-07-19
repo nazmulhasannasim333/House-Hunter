@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   // TODO
-  const [isOwner] = useOwner()
+  const [isOwner] = useOwner();
   console.log(isOwner);
 
   return (
@@ -39,7 +39,9 @@ const Navbar = () => {
                   Home
                 </NavLink>
               </li>
-              <li>
+              {
+                user &&
+                <li>
                 <NavLink
                   to={
                     isOwner
@@ -55,48 +57,51 @@ const Navbar = () => {
                   Dashboard
                 </NavLink>
               </li>
-              {user ? 
-              <li>
-              <div className="dropdown dropdown-end">
-                <label
-                  tabIndex={0}
-                  className="btn btn-ghost btn-circle avatar"
-                >
-                  <div className="w-10 rounded-full">
-                    <img
-                      title={user?.name && user.name}
-                      src={user?.photo ? user?.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"}
-                    />
-                  </div>
-                </label>
-                <ul
-                  tabIndex={0}
-                  className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-indigo-300 rounded-box w-52"
-                >
-                  <li>
-                    <Link  className="justify-between">
-                      Profile
-                      <span className="badge">New</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link onClick={handleLogout} >
-                      Logout
-                    </Link>
-                  </li>
-                </ul>
-              </div>{" "}
-            </li> 
-            :
-            <li>
-                {" "}
-                <Link to="/login">
-                  <button className="bg-green-500 px-5 py-2 rounded-md capitalize font-bold hover:opacity-80 ease-in duration-200">
-                    Login
-                  </button>
-                </Link>
-              </li>
-            }
+              }
+              {user ? (
+                <li>
+                  <div className="dropdown dropdown-end">
+                    <label
+                      tabIndex={0}
+                      className="btn btn-ghost btn-circle avatar"
+                    >
+                      <div className="w-10 rounded-full">
+                        <img
+                          title={user?.name && user.name}
+                          src={
+                            user?.photo
+                              ? user?.photo
+                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"
+                          }
+                        />
+                      </div>
+                    </label>
+                    <ul
+                      tabIndex={0}
+                      className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-indigo-300 rounded-box w-52"
+                    >
+                      <li>
+                        <Link className="justify-between">
+                          Profile
+                          <span className="badge">New</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link onClick={handleLogout}>Logout</Link>
+                      </li>
+                    </ul>
+                  </div>{" "}
+                </li>
+              ) : (
+                <li>
+                  {" "}
+                  <Link to="/login">
+                    <button className="bg-green-500 px-5 py-2 rounded-md capitalize font-bold hover:opacity-80 ease-in duration-200">
+                      Login
+                    </button>
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -129,44 +134,55 @@ const Navbar = () => {
                     Home
                   </NavLink>
                 </li>
-
+               {
+                user &&
                 <li className="font-semibold mt-3">
-                  <NavLink
-                    to="/dashboard/managehouse"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-green-600"
-                        : "hover:text-green-600 ease-in duration-200"
-                    }
-                  >
-                    Dashboard
-                  </NavLink>
-                </li>
-                <li className="mt-3">
-                  <div className="avatar">
-                    <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                    <img
-                      title={user?.name && user.name}
-                      src={user?.photo ? user?.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"}
-                    />
-                    </div>
-                  </div>
-                </li>
-               {user ?
-                <li className="mt-3">
-                  <button onClick={handleLogout} className="bg-green-500 px-5 py-2 rounded-md capitalize font-bold hover:opacity-80 ease-in duration-200">
-                    Logout
-                  </button>
+                <NavLink
+                  to="/dashboard/managehouse"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-green-600"
+                      : "hover:text-green-600 ease-in duration-200"
+                  }
+                >
+                  Dashboard
+                </NavLink>
               </li>
-              :
-              <li className="mt-3">
-              <Link to="/login">
-                <button className="bg-green-500 px-5 py-2 rounded-md capitalize font-bold hover:opacity-80 ease-in duration-200">
-                  Login
-                </button>
-              </Link>
-            </li>
-            }
+               }
+                {user && (
+                  <li className="mt-3">
+                    <div className="avatar">
+                      <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <img
+                          title={user?.name && user.name}
+                          src={
+                            user?.photo
+                              ? user?.photo
+                              : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"
+                          }
+                        />
+                      </div>
+                    </div>
+                  </li>
+                )}
+                {user ? (
+                  <li className="mt-3">
+                    <button
+                      onClick={handleLogout}
+                      className="bg-green-500 px-5 py-2 rounded-md capitalize font-bold hover:opacity-80 ease-in duration-200"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                ) : (
+                  <li className="mt-3">
+                    <Link to="/login">
+                      <button className="bg-green-500 px-5 py-2 rounded-md capitalize font-bold hover:opacity-80 ease-in duration-200">
+                        Login
+                      </button>
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           )}
