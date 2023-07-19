@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -9,7 +9,6 @@ const BookingForm = () => {
     const loadHouse = useLoaderData()
     const {user} = useContext(AuthContext)
     // console.log(loadHouse);
-    const [error, setError] = useState("")
 
     const {
         register,
@@ -90,7 +89,8 @@ const BookingForm = () => {
                         required: 'Please enter a valid Bangladeshi phone number.',
                       })}
                   />
-                  <p className='text-red-500'>{error && error}</p>
+                  {errors.number?.type === 'pattern' && <p className='text-red-500'>Please enter a valid Bangladeshi phone number</p>}
+                  
                 </div>
               <button
                 type="submit"

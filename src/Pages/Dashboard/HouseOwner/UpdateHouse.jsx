@@ -165,8 +165,8 @@ const UpdateHouse = () => {
                         pattern: /^(?:\+?88)?01[3-9]\d{8}$/,
                         required: 'Please enter a valid Bangladeshi phone number.',
                       })}
-                    required
                   />
+                   {errors.phone_number?.type === 'pattern' && <p className='text-red-500'>Please enter a valid Bangladeshi phone number</p>}
                 </div>
                 <div className="pt-3">
                   <label className="" htmlFor="text">
