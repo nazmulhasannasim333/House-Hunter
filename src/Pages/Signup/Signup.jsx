@@ -10,8 +10,6 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showError, setShowError] = useState("");
     const navigate = useNavigate()
-    // const {createUser} = useContext(AuthContext)
-    // console.log(createUser);
 
     const {
         register,
@@ -24,9 +22,8 @@ const Signup = () => {
         const {name, email, password, role} = data;
         const registerUser = {name, email, password, role}
 
-        axios.post('http://localhost:5000/signup', registerUser)
+        axios.post('https://house-hunter-server-eight.vercel.app/signup', registerUser)
         .then(res => {
-            console.log(res.data);
             if(res.data.insertedId){
                 reset()
                 Swal.fire({

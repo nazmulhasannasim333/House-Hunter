@@ -65,7 +65,7 @@ const Navbar = () => {
                   <div className="w-10 rounded-full">
                     <img
                       title={user?.name && user.name}
-                      src={user?.photo ? user?.photo : "https://images.pexels.com/photos/4045762/pexels-photo-4045762.jpeg?auto=compress&cs=tinysrgb&w=1600"}
+                      src={user?.photo ? user?.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"}
                     />
                   </div>
                 </label>
@@ -147,7 +147,7 @@ const Navbar = () => {
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img
                       title={user?.name && user.name}
-                      src={user?.photo ? user?.photo : "https://images.pexels.com/photos/4045762/pexels-photo-4045762.jpeg?auto=compress&cs=tinysrgb&w=1600"}
+                      src={user?.photo ? user?.photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRZ2LKnnbxuvK6x0Sl7JXCKNFeHutaglqYUTagKR10NI4gy4B4rw_nVxiF9g8tHG3wM8&usqp=CAU"}
                     />
                     </div>
                   </div>

@@ -24,7 +24,7 @@ const UpdateHouse = () => {
 
         const updateHouse = {address,availability_date,bathrooms,bedrooms, city, house_name, owner_email, owner_name, phone_number, picture, rent_per_month, room_size, description}
 
-        axios.put(`http://localhost:5000/updatehouse/${loadedHouse._id}`, updateHouse)
+        axios.put(`https://house-hunter-server-eight.vercel.app/updatehouse/${loadedHouse._id}`, updateHouse)
         .then(res => {
             if(res.data.modifiedCount > 0){
                 navigate("/dashboard/managehouse")
