@@ -70,7 +70,7 @@ const Houses = () => {
     if (!user) {
       Swal.fire({
         title:
-          "Please Login to select the apartment or you have already finished your booking limit",
+          "Please Login to booking the apartment",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

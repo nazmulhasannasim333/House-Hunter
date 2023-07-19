@@ -35,14 +35,18 @@ const BookingForm = () => {
                     showConfirmButton: false,
                     timer: 1500
                   })
-            }
+            } else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'This house already added to your booking list'
+                  })
+              }
         })
       }
 
 
-     
-
-
+    
     return (
         <div className="max-w-7xl mx-auto">
         <h3 className="text-center text-4xl font-semibold mb-14 mt-0">
